@@ -1,20 +1,115 @@
+<script lang="ts">
+    const srcLogo: string = "/images/icon_middle.png";
+    const srcGitHub: string = "/images/GitHub-Mark-120px-plus.png";
+    const href: string = "https://github.com/Otohito-Fuse/Sheeter-app-svelte";
+</script>
+
 <header>
-    <h1>Sheeter app</h1>
-    <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+    <div class="header-left">
+        <div class="wrap">
+            <img class="img-logo" src={srcLogo} alt="logo">
+        </div>
+        <div class="wrap">
+            <h1>Sheeter app</h1>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="wrap">
+            <a {href} target="_blank" rel="noopener noreferrer">
+                <img class="img-github" src={srcGitHub} alt="GitHub link">
+            </a>
+        </div>
+    </div>
 </header>
 
 <style>
     header {
-        text-align: center;
         width: 100%;
         margin: 0;
-        padding: 25px 0 25px 0;
-        background-color: #f4f4f4;
+        padding: 5px 0;
+        background-color: #f6f6f6;
+        display : -webkit-box;     /* old Android */
+        display : -webkit-flex;    /* Safari etc. */
+        display : -ms-flexbox;     /* IE10        */
+        display : flex;
+        -webkit-align-items: center;      /* Safari etc. */
+        -ms-align-items    : center;      /* IE10        */
+        align-items        : center;
+        justify-content: space-between;
+        box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+    }
+
+    .header-left {
+        margin: 10px 0 10px 60px;
+        display : -webkit-box;     /* old Android */
+        display : -webkit-flex;    /* Safari etc. */
+        display : -ms-flexbox;     /* IE10        */
+        display : flex;
+        -webkit-align-items: center;      /* Safari etc. */
+        -ms-align-items    : center;      /* IE10        */
+        align-items        : center;
+    }
+
+    .header-right {
+        margin: 10px 60px 10px 0;
+        display : -webkit-box;     /* old Android */
+        display : -webkit-flex;    /* Safari etc. */
+        display : -ms-flexbox;     /* IE10        */
+        display : flex;
+        -webkit-align-items: center;      /* Safari etc. */
+        -ms-align-items    : center;      /* IE10        */
+        align-items        : center;
+    }
+
+    .img-logo {
+        width: 64px;
+        height: 64px;
+        image-rendering: pixelated;
+    }
+
+    .img-github {
+        width: 30px;
+        image-rendering: pixelated;
+    }
+
+    .wrap {
+        padding: 0 10px;
     }
 
     h1 {
 		color: #ff3e00;
-		font-size: 4em;
+		font-size: 3em;
 		font-weight: 100;
 	}
+
+    @media (max-width: 640px) {
+        .header-left {
+            margin: 8px 0 8px 16px;
+        }
+
+        .header-right {
+            margin: 8px 16px 8px 0;
+        }
+
+        .img-logo {
+            width: 48px;
+            height: 48px;
+            image-rendering: pixelated;
+        }
+
+        .img-github {
+            width: 20px;
+            image-rendering: pixelated;
+        }
+
+        .wrap {
+            padding: 0 7px;
+        }
+
+        h1 {
+            color: #ff3e00;
+            font-size: 2em;
+            font-weight: 100;
+        }
+    }
 </style>
