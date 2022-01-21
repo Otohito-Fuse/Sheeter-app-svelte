@@ -3,7 +3,7 @@
     export let placeholder: string;
 </script>
 
-<textarea bind:value {placeholder} />
+<textarea bind:value {placeholder} spellcheck="false" autocomplete="off" />
 
 <style>
     textarea {
