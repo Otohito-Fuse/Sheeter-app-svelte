@@ -29,7 +29,7 @@
         <div class="contents-wrapper">
             <div class="contents-title">
                 <div class="title-input">
-                    <Input bind:value={title} placeholder="Input the title here." />
+                    <Input bind:value={title} placeholder="Input a title here." />
                 </div>
                 <div class="title-menus">
                     <p>
