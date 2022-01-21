@@ -3,15 +3,15 @@
     export let placeholder: string;
 </script>
 
-<textarea bind:value {placeholder} />
+<input bind:value {placeholder} />
 
 <style>
-    textarea {
+    input {
+        width: 100%;
+        height: 100%;
         border: none;
         background-color: rgba(255, 255, 255, 0);
         box-shadow: none;
         resize: none;
-        width: 100%;
-        height: 100%;
     }
 </style>

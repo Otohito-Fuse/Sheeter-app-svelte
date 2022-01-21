@@ -1,14 +1,18 @@
 <script lang="ts">
     import Inputarea from "./Inputarea.svelte";
+    import Outputarea from "./Outputarea.svelte";
+
+    import { sampleTitle, sampleChords, sampleNotes } from "./module/constants";
 
     let leftWidth: number = 50;
+    $: rightWidth = 100 - leftWidth;
     let dragging: boolean = false;
 
     const updateWidth = (e: any) => {
         if (dragging) {
             let newLeftWidthPixel = e.clientX;
             let newLeftWidth = (newLeftWidthPixel / window.innerWidth) * 100;
-            if (newLeftWidth >= 20 && newLeftWidthPixel >= 300) {
+            if (newLeftWidth >= 20 && newLeftWidthPixel >= 310) {
                 leftWidth = newLeftWidth;
             }
         }
@@ -16,8 +20,9 @@
 
     const updateWidthWithTap = (e: any) => {
         if (dragging) {
-            let newLeftWidth = (e.changedTouches[0].pageX / window.innerWidth) * 100;
-            if (newLeftWidth >= 10 && newLeftWidth <= 90) {
+            let newLeftWidthPixel = e.changedTouches[0].pageX;
+            let newLeftWidth = (newLeftWidthPixel / window.innerWidth) * 100;
+            if (newLeftWidth >= 20 && newLeftWidthPixel >= 310) {
                 leftWidth = newLeftWidth;
             }
         }
@@ -27,14 +32,28 @@
 
     const updateWindowWidth = () => {
         windowWidth = window.innerWidth;
-        if (windowWidth * leftWidth * 0.01 < 300) {
-            leftWidth = (300 / windowWidth) * 100;
+        if (windowWidth * leftWidth * 0.01 < 310) {
+            leftWidth = (310 / windowWidth) * 100;
         }
     };
 
     window.addEventListener('resize', updateWindowWidth);
 
-    let title = "Title";
+    let title: string = "";
+    let chords: string = "";
+    let notes: string = "";
+
+    const setSampleValues = () => {
+        title = sampleTitle;
+        chords = sampleChords;
+        notes = sampleNotes;
+    }
+
+    const resetValues = () => {
+        title = "";
+        chords = "";
+        notes = "";
+    }
 </script>
 
 {#if windowWidth > 640}
@@ -44,23 +63,25 @@
         on:touchmove={updateWidthWithTap}
         on:touchend={() => {dragging = false;}}>
         <div class="l-r left" style="width: {leftWidth}%;">
-            <Inputarea {title} />
+            <Inputarea bind:title bind:chords bind:notes on:setSampleValues={setSampleValues} on:resetValues={resetValues} />
         </div>
         <div class="border border-v" class:dragging
             on:mousedown|preventDefault={() => {dragging = true;}}
             on:touchstart|preventDefault={() => {dragging = true;}}>
         </div>
-        <div class="l-r right" style="width: {100 - leftWidth}%;">
+        <div class="l-r right" style="width: {rightWidth}%;">
+            <Outputarea width={rightWidth * windowWidth * 0.01} />
         </div>
     </div>
 {:else}
     <div class="whole-small">
         <div class="u-d up">
-            <Inputarea {title} />
+            <Inputarea bind:title bind:chords bind:notes on:setSampleValues={setSampleValues} on:resetValues={resetValues} />
         </div>
         <div class="border border-h">
         </div>
         <div class="u-d down">
+            <Outputarea width={windowWidth} />
         </div>
     </div>
 {/if}

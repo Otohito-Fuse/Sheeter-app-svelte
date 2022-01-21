@@ -1,7 +1,22 @@
 <script lang="ts">
-import Textarea from "./Textarea.svelte";
+    import Input from "./Input.svelte";
+    import Textarea from "./Textarea.svelte";
+
+    import { createEventDispatcher } from 'svelte';
 
     export let title: string;
+    export let chords: string;
+    export let notes: string;
+
+    const dispatch = createEventDispatcher();
+
+    const setSampleValues = () => {
+        dispatch('setSampleValues');
+    }
+
+    const resetValues = () => {
+        dispatch('resetValues');
+    }
 </script>
 
 <div class="whole">
@@ -11,8 +26,19 @@ import Textarea from "./Textarea.svelte";
                 Title:
             </p>
         </div>
-        <div class="contents">
-            <Textarea rows={1} value={title} />
+        <div class="contents-wrapper">
+            <div class="contents-title">
+                <div class="title-input">
+                    <Input bind:value={title} placeholder="Input the title here." />
+                </div>
+                <div class="title-menus">
+                    <p>
+                        <span class="link" on:click={setSampleValues}>sample</span>
+                        <span style="display: inline-block; width: 3px;"></span>
+                        <span class="link" on:click={resetValues}>reset</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="each-block chords-area">
@@ -21,8 +47,10 @@ import Textarea from "./Textarea.svelte";
                 Chords:
             </p>
         </div>
-        <div class="contents">
-            
+        <div class="contents-wrapper">
+            <div class="contents-textarea">
+                <Textarea bind:value={chords} placeholder="Input chords here." />
+            </div>
         </div>
     </div>
     <div class="each-block notes-area">
@@ -31,8 +59,10 @@ import Textarea from "./Textarea.svelte";
                 Notes:
             </p>
         </div>
-        <div class="contents">
-            
+        <div class="contents-wrapper">
+            <div class="contents-textarea">
+                <Textarea bind:value={notes} placeholder="Input notes here." />
+            </div>
         </div>
     </div>
 </div>
@@ -83,8 +113,50 @@ import Textarea from "./Textarea.svelte";
         -ms-user-select: none; /* IE10から */
     }
 
-    .contents {
+    .contents-wrapper {
         width: calc(100% - min(25%, 120px));
         height: 100%;
+    }
+
+    .contents-title {
+        width: calc(100% - 15px);
+        height: calc(100% - 30px);
+        margin: 15px 10px 15px 5px;
+        display : -webkit-box;     /* old Android */
+        display : -webkit-flex;    /* Safari etc. */
+        display : -ms-flexbox;     /* IE10        */
+        display : flex;
+    }
+
+    .title-input {
+        width: calc(100% - 110px);
+    }
+
+    .title-menus {
+        text-align: right;
+        width: 110px;
+        padding-right: 8px;
+    }
+
+    .link {
+        color: rgb(0,100,200);
+        text-decoration: underline;
+        cursor: pointer;
+        transition: .1s;
+
+        user-select: none; /* CSS3 */
+        -moz-user-select: none; /* Firefox */
+        -webkit-user-select: none; /* Safari、Chromeなど */
+        -ms-user-select: none; /* IE10から */
+    }
+
+    .link:hover {
+        text-decoration-color: rgba(0, 100, 200, 0);
+    }
+
+    .contents-textarea {
+        width: calc(100% - 15px);
+        height: calc(100% - 30px);
+        margin: 23px 10px 7px 5px;
     }
 </style>
