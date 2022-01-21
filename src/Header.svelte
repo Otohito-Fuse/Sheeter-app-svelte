@@ -10,7 +10,7 @@
             <img class="img-logo" src={srcLogo} alt="logo">
         </div>
         <div class="wrap">
-            <h1>Sheeter app</h1>
+            <h1>Lead Sheeter</h1>
         </div>
     </div>
     <div class="header-right">
@@ -25,6 +25,7 @@
 <style>
     header {
         width: 100%;
+        height: 100px;
         margin: 0;
         padding: 5px 0;
         background-color: #f6f6f6;
@@ -37,6 +38,7 @@
         align-items        : center;
         justify-content: space-between;
         box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+        position:relative;
     }
 
     .header-left {
@@ -77,12 +79,18 @@
     }
 
     h1 {
-		color: #ff3e00;
+        /* Svelte sample title color: */
+        /* color: #ff3e00; */
+		color: #0d6bc4;
 		font-size: 3em;
-		font-weight: 100;
+		font-weight: 200;
 	}
 
     @media (max-width: 640px) {
+        header {
+            height: 80px;
+        }
+
         .header-left {
             margin: 8px 0 8px 16px;
         }
@@ -107,9 +115,7 @@
         }
 
         h1 {
-            color: #ff3e00;
             font-size: 2em;
-            font-weight: 100;
         }
     }
 </style>

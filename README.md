@@ -3,7 +3,6 @@
 Install the dependencies...
 
 ```bash
-cd sheeter-app
 npm install
 ```
 
