@@ -7,7 +7,7 @@
 <header>
     <div class="header-left">
         <div class="wrap">
-            <img class="img-logo" src={srcLogo} alt="logo">
+            <img draggable="false" class="img-logo" src={srcLogo} alt="logo">
         </div>
         <div class="wrap">
             <h1>Lead Sheeter</h1>
@@ -16,7 +16,7 @@
     <div class="header-right">
         <div class="wrap">
             <a {href} target="_blank" rel="noopener noreferrer">
-                <img class="img-github" src={srcGitHub} alt="GitHub link">
+                <img draggable="false" class="img-github" src={srcGitHub} alt="GitHub link">
             </a>
         </div>
     </div>
@@ -84,6 +84,11 @@
 		color: #0d6bc4;
 		font-size: 3em;
 		font-weight: 200;
+
+        user-select: none; /* CSS3 */
+        -moz-user-select: none; /* Firefox */
+        -webkit-user-select: none; /* Safari、Chromeなど */
+        -ms-user-select: none; /* IE10から */
 	}
 
     @media (max-width: 640px) {

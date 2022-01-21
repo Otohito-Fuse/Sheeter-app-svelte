@@ -76,6 +76,11 @@ import Textarea from "./Textarea.svelte";
         font-weight: 200;
         margin: 27px 5px auto auto;
         text-align: right;
+
+        user-select: none; /* CSS3 */
+        -moz-user-select: none; /* Firefox */
+        -webkit-user-select: none; /* Safari、Chromeなど */
+        -ms-user-select: none; /* IE10から */
     }
 
     .contents {
