@@ -3,7 +3,7 @@
     export let placeholder: string;
 </script>
 
-<input bind:value {placeholder} />
+<input bind:value {placeholder} spellcheck="false" autocomplete="off" />
 
 <style>
     input {
