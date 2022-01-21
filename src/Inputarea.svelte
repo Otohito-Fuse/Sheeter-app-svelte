@@ -88,12 +88,12 @@
     }
 
     .chords-area {
-        height: calc((100% - 80px) / 3);
+        height: calc(((100% - 80px) / 3) - 1px);
         border-bottom: 1px solid #ddd;
     }
 
     .notes-area {
-        height: calc(100% - 80px - ((100% - 80px) / 3));
+        height: calc(100% - 81px - ((100% - 80px) / 3));
     }
 
     .name {

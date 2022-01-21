@@ -62,15 +62,15 @@
         on:mouseup={() => {dragging = false;}}
         on:touchmove={updateWidthWithTap}
         on:touchend={() => {dragging = false;}}>
-        <div class="l-r left" style="width: {leftWidth}%;">
+        <div class="l-r left" style="width: calc({leftWidth}% - 1px);">
             <Inputarea bind:title bind:chords bind:notes on:setSampleValues={setSampleValues} on:resetValues={resetValues} />
         </div>
         <div class="border border-v" class:dragging
             on:mousedown|preventDefault={() => {dragging = true;}}
             on:touchstart|preventDefault={() => {dragging = true;}}>
         </div>
-        <div class="l-r right" style="width: {rightWidth}%;">
-            <Outputarea width={rightWidth * windowWidth * 0.01} />
+        <div class="l-r right" style="width: calc({rightWidth}% - 1px);">
+            <Outputarea width={rightWidth * windowWidth * 0.01 - 1} />
         </div>
     </div>
 {:else}
@@ -100,7 +100,6 @@
     }
 
     .l-r {
-        overflow: auto;
         height: 100%;
     }
 
@@ -110,6 +109,8 @@
 
     .right {
         background-color: #fff;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .border {
@@ -120,10 +121,11 @@
         width: 0px;
         height: 100%;
         cursor: ew-resize;
+        transition: .2s;
     }
 
     .border-v:hover, .dragging {
-        border-width: 3px;
+        border-color: #bbb;
     }
 
     .u-d {
