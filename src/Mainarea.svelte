@@ -2,17 +2,20 @@
     import Inputarea from "./Inputarea.svelte";
     import Outputarea from "./Outputarea.svelte";
 
-    import { sampleTitle, sampleChords, sampleNotes } from "./module/constants";
+    import { sampleTitle, sampleChords, sampleNotes, widthThreshold } from "./lib/constants";
+    import { loadFromStorage, saveToStorage } from "./lib/storage";
 
     let leftWidth: number = 50;
     $: rightWidth = 100 - leftWidth;
     let dragging: boolean = false;
 
+    const minLeftWidthPixel: number = widthThreshold / 2 - 10;
+
     const updateWidth = (e: any) => {
         if (dragging) {
             let newLeftWidthPixel = e.clientX;
             let newLeftWidth = (newLeftWidthPixel / window.innerWidth) * 100;
-            if (newLeftWidth >= 20 && newLeftWidthPixel >= 310) {
+            if (newLeftWidth >= 20 && newLeftWidthPixel >= minLeftWidthPixel) {
                 leftWidth = newLeftWidth;
             }
         }
@@ -22,7 +25,7 @@
         if (dragging) {
             let newLeftWidthPixel = e.changedTouches[0].pageX;
             let newLeftWidth = (newLeftWidthPixel / window.innerWidth) * 100;
-            if (newLeftWidth >= 20 && newLeftWidthPixel >= 310) {
+            if (newLeftWidth >= 20 && newLeftWidthPixel >= minLeftWidthPixel) {
                 leftWidth = newLeftWidth;
             }
         }
@@ -32,16 +35,16 @@
 
     const updateWindowWidth = () => {
         windowWidth = window.innerWidth;
-        if (windowWidth * leftWidth * 0.01 < 310) {
-            leftWidth = (310 / windowWidth) * 100;
+        if (windowWidth * leftWidth * 0.01 < minLeftWidthPixel) {
+            leftWidth = (minLeftWidthPixel / windowWidth) * 100;
         }
     };
 
     window.addEventListener('resize', updateWindowWidth);
 
-    let title: string = "";
-    let chords: string = "";
-    let notes: string = "";
+    let title: string = loadFromStorage('title');
+    let chords: string = loadFromStorage('chords');
+    let notes: string = loadFromStorage('notes');
 
     const setSampleValues = () => {
         title = sampleTitle;
@@ -54,9 +57,21 @@
         chords = "";
         notes = "";
     }
+
+    $: {
+        saveToStorage('title', title);
+    }
+
+    $: {
+        saveToStorage('chords', chords);
+    }
+
+    $: {
+        saveToStorage('notes', notes);
+    }
 </script>
 
-{#if windowWidth > 640}
+{#if windowWidth > widthThreshold}
     <div class="whole"
         on:mousemove={updateWidth}
         on:mouseup={() => {dragging = false;}}

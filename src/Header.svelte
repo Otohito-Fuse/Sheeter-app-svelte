@@ -91,7 +91,7 @@
         -ms-user-select: none; /* IE10から */
 	}
 
-    @media (max-width: 640px) {
+    @media (max-width: 750px) {
         header {
             height: 80px;
         }
