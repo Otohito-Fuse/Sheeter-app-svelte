@@ -11,10 +11,12 @@
 </script>
 
 <svg {height} {width} viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" preserveAspectRatio="xMidYMin">
+    <!-- Title -->
     <text x={viewBoxWidth / 2} y={yTitle} font-size="80" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif">
         {title}
     </text>
 
+    <!-- Staves -->
     {#each Array(staves.length) as _, i}
         {#if i != staves.length - 1}
             <StaveComponent yMiddle={yFirstStave + yStaveInterval * i} numOfBars={staves[i].bars.length} isLastStave={false} />

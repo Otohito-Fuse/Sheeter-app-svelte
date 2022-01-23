@@ -20,4 +20,4 @@ export const barWidth: number = 2;
 
 export const doubleBarInterval: number = 10;
 
-export const clefWidth: number = 75;
+export const clefWidth: number = 55;
