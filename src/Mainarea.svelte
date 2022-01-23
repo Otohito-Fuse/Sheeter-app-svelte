@@ -2,8 +2,10 @@
     import Inputarea from "./Inputarea.svelte";
     import Outputarea from "./Outputarea.svelte";
 
-    import { sampleTitle, sampleChords, sampleNotes, widthThreshold } from "./lib/constants";
+    import { sampleTitle, sampleChords, sampleNotes, widthThreshold } from "./config/constants";
     import { loadFromStorage, saveToStorage } from "./lib/storage";
+
+    import { parse } from "./module/parser";
 
     let leftWidth: number = 50;
     $: rightWidth = 100 - leftWidth;
@@ -69,6 +71,8 @@
     $: {
         saveToStorage('notes', notes);
     }
+
+    $: staves = parse(notes);
 </script>
 
 {#if windowWidth > widthThreshold}
@@ -85,7 +89,7 @@
             on:touchstart|preventDefault={() => {dragging = true;}}>
         </div>
         <div class="l-r right" style="width: calc({rightWidth}% - 1px);">
-            <Outputarea width={rightWidth * windowWidth * 0.01 - 1} />
+            <Outputarea width={rightWidth * windowWidth * 0.01 - 1} {staves} {title} />
         </div>
     </div>
 {:else}
@@ -96,7 +100,7 @@
         <div class="border border-h">
         </div>
         <div class="u-d down">
-            <Outputarea width={windowWidth} />
+            <Outputarea width={windowWidth} {staves} {title} />
         </div>
     </div>
 {/if}

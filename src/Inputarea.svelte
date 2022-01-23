@@ -156,7 +156,7 @@
 
     .contents-textarea {
         width: calc(100% - 15px);
-        height: calc(100% - 30px);
-        margin: 23px 10px 7px 5px;
+        height: calc(100% - 35px);
+        margin: 18px 10px 7px 5px;
     }
 </style>

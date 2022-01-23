@@ -6,6 +6,8 @@ function parseBar(s: string): Bar {
 
 export function parse(s: string): Array<Stave> {
     let list: string[] = s.split("|");
+    list.shift();
+    list.pop();
     let n: number = 0;
     let output: Array<Stave> = [];
     while (n < list.length) {
