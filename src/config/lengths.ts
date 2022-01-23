@@ -27,3 +27,7 @@ export const rdot: number = yLineInterval * 0.18;
 export const xFirstDot: number = yLineInterval * 1.1;
 
 export const xDotInterval: number = yLineInterval * 0.7;
+
+export const barPaddingLeftRatio: number = 0.1;
+
+export const barPaddingRightRatio: number = 0.05

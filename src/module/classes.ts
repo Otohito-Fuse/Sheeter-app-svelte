@@ -26,13 +26,15 @@ export class NoteHead {
     xRel: number;
     yRel: number;
     noteHeadType: NoteHeadType;
-    dot: number;
+    dots: number;
+    accidental: Accidental;
 
-    constructor(xRel: number, yRel: number, noteHeadType: NoteHeadType, dot: number) {
+    constructor(xRel: number, yRel: number, noteHeadType: NoteHeadType, dots: number, accidental: Accidental) {
         this.xRel = xRel;
         this.yRel = yRel;
         this.noteHeadType = noteHeadType;
-        this.dot = dot;
+        this.dots = dots;
+        this.accidental = accidental;
     }
 }
 
@@ -134,14 +136,33 @@ export class NoteHeight {
         this.octave = octave;
         this.accidental = accidental;
     }
+
+    toYRel(): number {
+        switch(this.symbol) {
+            case "A":
+                return -1 + 7 * (this.octave - 4);
+            case "B":
+                return 7 * (this.octave - 4);
+            case "C":
+                return -6 + 7 * (this.octave - 4);
+            case "D":
+                return -5 + 7 * (this.octave - 4);
+            case "E":
+                return -4 + 7 * (this.octave - 4);
+            case "F":
+                return -3 + 7 * (this.octave - 4);
+            case "G":
+                return -2 + 7 * (this.octave - 4);
+        }
+    }
 }
 
 export class Note {
-    height: NoteHeight | "Rest";
+    height: NoteHeight | null;
     lenNumer: number;
     lenDenom: number;
 
-    constructor(height: NoteHeight | "Rest", lenNumer: number, lenDenom: number) {
+    constructor(height: NoteHeight | null, lenNumer: number, lenDenom: number) {
         this.height = height;
         this.lenNumer = lenNumer;
         this.lenDenom = lenDenom;
