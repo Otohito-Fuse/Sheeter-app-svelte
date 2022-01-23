@@ -15,3 +15,9 @@ export const xLeftMargin: number = 200;
 export const xRightMargin: number = 200;
 
 export const lineWidth: number = 1.5;
+
+export const barWidth: number = 2;
+
+export const doubleBarInterval: number = 10;
+
+export const clefWidth: number = 75;

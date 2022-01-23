@@ -16,7 +16,11 @@
     </text>
 
     {#each Array(staves.length) as _, i}
-        <StaveComponent yMiddle={yFirstStave + yStaveInterval * i} />
+        {#if i != staves.length - 1}
+            <StaveComponent yMiddle={yFirstStave + yStaveInterval * i} numOfBars={staves[i].bars.length} isLastStave={false} />
+        {:else}
+            <StaveComponent yMiddle={yFirstStave + yStaveInterval * i} numOfBars={staves[i].bars.length} isLastStave={true} />
+        {/if}
     {/each}
 </svg>
 
