@@ -21,17 +21,16 @@ export class Bar {
 }
 
 export type NoteHeadType = "whole" | "half" | "quarter";
-export type Dot = 0 | 1 | 2;
 
 export class NoteHead {
-    x: number;
-    y: number;
+    xRel: number;
+    yRel: number;
     noteHeadType: NoteHeadType;
-    dot: Dot;
+    dot: number;
 
-    constructor(x: number, y: number, noteHeadType: NoteHeadType, dot: Dot) {
-        this.x = x;
-        this.y = y;
+    constructor(xRel: number, yRel: number, noteHeadType: NoteHeadType, dot: number) {
+        this.xRel = xRel;
+        this.yRel = yRel;
         this.noteHeadType = noteHeadType;
         this.dot = dot;
     }
@@ -40,41 +39,41 @@ export class NoteHead {
 export type FlagType = "none" | "eighth" | "sixteenth";
 
 export class Stem {
-    x: number;
-    yHead: number;
-    yFlag: number;
+    xRel: number;
+    yRelHead: number;
+    yRelFlag: number;
     flagType: FlagType;
 
-    constructor(x: number, yHead: number, yFlag: number, flagType: FlagType) {
-        this.x = x;
-        this.yHead = yHead;
-        this.yFlag = yFlag;
+    constructor(xRel: number, yRelHead: number, yRelFlag: number, flagType: FlagType) {
+        this.xRel = xRel;
+        this.yRelHead = yRelHead;
+        this.yRelFlag = yRelFlag;
         this.flagType = flagType;
     }
 }
 
 export class Beam {
-    xLeft: number;
-    xRight: number;
-    yLeft: number;
-    yRight: number;
+    xRelLeft: number;
+    xRelRight: number;
+    yRelLeft: number;
+    yRelRight: number;
 
-    constructor(xLeft: number, xRight: number, yLeft: number, yRight: number) {
-        this.xLeft = xLeft;
-        this.xRight = xRight;
-        this.yLeft = yLeft;
-        this.yRight = yRight;
+    constructor(xRelLeft: number, xRelRight: number, yRelLeft: number, yRelRight: number) {
+        this.xRelLeft = xRelLeft;
+        this.xRelRight = xRelRight;
+        this.yRelLeft = yRelLeft;
+        this.yRelRight = yRelRight;
     }
 }
 
 export type RestType = "whole" | "half" | "quarter" | "eighth" | "sixteenth";
 
 export class Rest {
-    x: number;
+    xRel: number;
     restType: RestType;
 
-    constructor(x: number, restType: RestType) {
-        this.x = x;
+    constructor(xRel: number, restType: RestType) {
+        this.xRel = xRel;
         this.restType = restType;
     }
 }

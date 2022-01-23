@@ -1,7 +1,10 @@
 <script lang="ts">
     import type { Stave } from './module/classes';
-    import { viewBoxHeight, viewBoxWidth, yTitle, yFirstStave, yStaveInterval } from './config/lengths';
+    import { viewBoxHeight, viewBoxWidth, yTitle, yFirstStave, yStaveInterval, xLeftMargin, clefWidth, xRightMargin } from './config/lengths';
     import StaveComponent from './svgComponents/StaveComponent.svelte';
+    import NoteHeadQComponent from './svgComponents/NoteHeadQComponent.svelte';
+    import NoteHeadHComponent from './svgComponents/NoteHeadHComponent.svelte';
+    import NoteHeadWComponent from './svgComponents/NoteHeadWComponent.svelte';
 
     export let width: number;
     $: height = width * viewBoxHeight / viewBoxWidth;
@@ -24,6 +27,10 @@
             <StaveComponent yMiddle={yFirstStave + yStaveInterval * i} numOfBars={staves[i].bars.length} isLastStave={true} />
         {/if}
     {/each}
+
+    <NoteHeadWComponent xRel={0.2} xLeftEnd={xLeftMargin + clefWidth} xRightEnd={viewBoxWidth - xRightMargin} yRel={1} yMiddle={yFirstStave} dots={1} />
+    <NoteHeadQComponent xRel={0.4} xLeftEnd={xLeftMargin + clefWidth} xRightEnd={viewBoxWidth - xRightMargin} yRel={2} yMiddle={yFirstStave} dots={1} />
+    <NoteHeadHComponent xRel={0.3} xLeftEnd={xLeftMargin + clefWidth} xRightEnd={viewBoxWidth - xRightMargin} yRel={3} yMiddle={yFirstStave} dots={1} />
 </svg>
 
 <style>
