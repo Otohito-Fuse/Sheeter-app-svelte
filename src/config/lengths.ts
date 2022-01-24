@@ -20,14 +20,26 @@ export const barWidth: number = 2;
 
 export const doubleBarInterval: number = 10;
 
-export const clefWidth: number = 55;
+export const clefWidth: number = yLineInterval * 4;
 
-export const rdot: number = yLineInterval * 0.18;
+export const timeSignatureWidth: number = yLineInterval * 3.5;
 
-export const xFirstDot: number = yLineInterval * 1.1;
+export const keySignatureWidthUnit: number = yLineInterval * 0.9;
+
+export const rdot: number = yLineInterval * 0.2;
+
+export const xFirstDot: number = yLineInterval * 1.3;
 
 export const xDotInterval: number = yLineInterval * 0.7;
 
-export const barPaddingLeftRatio: number = 0.1;
+export const barPaddingLeftRatio: number = 0.15;
 
-export const barPaddingRightRatio: number = 0.05
+export const barPaddingRightRatio: number = 0;
+
+export const ledgerLineLength: number = yLineInterval * 2.6;
+
+export const accidentalDistance: number = yLineInterval * 1.7;
+
+export const keySignatureArrayFlat: number[] = [0, 3, -1, 2, -2, 1, -3];
+
+export const keySignatureArraySharp: number[] = [4, 1, 5, 2, -1, 3, 0];

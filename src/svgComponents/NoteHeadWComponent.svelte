@@ -5,8 +5,14 @@
     export let yRel: number;
     export let yMiddle: number;
     export let dots: number;
+    export let accidental: Accidental;
 
-    import { yLineInterval, rdot, xDotInterval, xFirstDot } from "../config/lengths";
+    import { yLineInterval, xFirstDot, accidentalDistance } from "../config/lengths";
+    import DotsComponent from "./DotsComponent.svelte";
+    import LedgerLineComponent from "./LedgerLineComponent.svelte";
+    import type { Accidental } from "../module/classes";
+    import FlatComponent from "./FlatComponent.svelte";
+    import SharpComponent from "./SharpComponent.svelte";
 
     $: cx = xLeftEnd + xRel * (xRightEnd - xLeftEnd);
     $: cy = yMiddle - yRel / 2 * yLineInterval;
@@ -15,7 +21,7 @@
 </script>
 
 <path
-style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
+    style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
     d="m 13.892908,-28.044092
         a 25.930325,43.088662 71.838869 0 0 -26.353503,5.001244
             25.930325,43.088662 71.838869 0 0 -27.368094,39.057558
@@ -30,18 +36,11 @@ style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
             18.880068,22.582411 0 0 1 18.8798378369,-22.58208337714
         z"
     transform="scale({scale}) translate({cx / scale} {cy / scale})" />
-{#each Array(dots) as _, i}
-    {#if yRel % 2 == 0}
-        <circle
-            style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
-            cx={cx + xFirstDot * 1.1 + i * xDotInterval}
-            cy={cy - yLineInterval / 2}
-            r={rdot} />
-    {:else}
-        <circle
-            style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
-            cx={cx + xFirstDot * 1.1 + i * xDotInterval}
-            {cy}
-            r={rdot} />
-    {/if}
-{/each}
+<DotsComponent xFirstDotAbs={cx + xFirstDot * 1.1} {dots} {yRel} {yMiddle} />
+<LedgerLineComponent {cx} {yMiddle} {yRel} />
+{#if accidental == "flat"}
+    <FlatComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
+{/if}
+{#if accidental == "sharp"}
+    <SharpComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
+{/if}

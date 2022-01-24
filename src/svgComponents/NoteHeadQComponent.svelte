@@ -5,8 +5,14 @@
     export let yRel: number;
     export let yMiddle: number;
     export let dots: number;
+    export let accidental: Accidental;
 
-    import { yLineInterval, rdot, xDotInterval, xFirstDot } from "../config/lengths";
+    import { yLineInterval, xFirstDot, accidentalDistance } from "../config/lengths";
+    import DotsComponent from "./DotsComponent.svelte";
+    import LedgerLineComponent from "./LedgerLineComponent.svelte";
+    import type { Accidental } from "../module/classes";
+    import FlatComponent from "./FlatComponent.svelte";
+    import SharpComponent from "./SharpComponent.svelte";
 
     const rx: number = yLineInterval * 0.37894733 * 1.9;
     const ry: number = yLineInterval * 0.2542448 * 1.9;
@@ -23,18 +29,11 @@
     {rx}
     {ry}
     transform="rotate(-25, {cx}, {cy})" />
-{#each Array(dots) as _, i}
-    {#if yRel % 2 == 0}
-        <circle
-            style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
-            cx={cx + xFirstDot + i * xDotInterval}
-            cy={cy - yLineInterval / 2}
-            r={rdot} />
-    {:else}
-        <circle
-            style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
-            cx={cx + xFirstDot + i * xDotInterval}
-            {cy}
-            r={rdot} />
-    {/if}
-{/each}
+<DotsComponent xFirstDotAbs={cx + xFirstDot} {dots} {yRel} {yMiddle} />
+<LedgerLineComponent {cx} {yMiddle} {yRel} />
+{#if accidental == "flat"}
+    <FlatComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
+{/if}
+{#if accidental == "sharp"}
+    <SharpComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
+{/if}

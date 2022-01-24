@@ -1,8 +1,14 @@
 export class Stave {
     bars: Array<Bar>;
+    timeSignatureNumer: number;
+    timeSignatureDenom: number;
+    keySignature: number;
 
-    constructor(bars: Array<Bar>) {
+    constructor(bars: Array<Bar>, timeSignatureNumer: number, timeSignatureDenom: number, keySignature: number) {
         this.bars = bars;
+        this.timeSignatureNumer = timeSignatureNumer;
+        this.timeSignatureDenom = timeSignatureDenom;
+        this.keySignature = keySignature;
     }
 }
 
@@ -73,10 +79,12 @@ export type RestType = "whole" | "half" | "quarter" | "eighth" | "sixteenth";
 export class Rest {
     xRel: number;
     restType: RestType;
+    dots: number;
 
-    constructor(xRel: number, restType: RestType) {
+    constructor(xRel: number, restType: RestType, dots: number) {
         this.xRel = xRel;
         this.restType = restType;
+        this.dots = dots;
     }
 }
 
@@ -161,10 +169,12 @@ export class Note {
     height: NoteHeight | null;
     lenNumer: number;
     lenDenom: number;
+    withTie: boolean;
 
-    constructor(height: NoteHeight | null, lenNumer: number, lenDenom: number) {
+    constructor(height: NoteHeight | null, lenNumer: number, lenDenom: number, withTie: boolean) {
         this.height = height;
         this.lenNumer = lenNumer;
         this.lenDenom = lenDenom;
+        this.withTie = withTie;
     }
 }
