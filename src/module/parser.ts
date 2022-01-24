@@ -132,96 +132,72 @@ function notesToElements(notes: Array<Note>): Bar {
     let lengthPartialSum: number = 0;
     for (let { height, lenNumer, lenDenom } of notes) {
         let xRel: number = barPaddingLeftRatio + (1 - barPaddingLeftRatio - barPaddingRightRatio) * (lengthPartialSum / lengthSum);
+        lengthPartialSum += lenNumer / lenDenom;
         if (height) {
             let yRel: number = height.toYRel();
             
             let noteHeadType: NoteHeadType;
             let dots: number;
-            // TODO: Consider how to treat note values
-            if (lenNumer == lenDenom) {
-                noteHeadType = "whole";
-                dots = 0;
-            } else if (lenNumer * 2 == lenDenom * 3) {
-                noteHeadType = "whole";
+            
+            let numer0: number;
+            let denom0: number;
+            if (lenNumer % 3 == 0) {
                 dots = 1;
-            } else if (lenNumer * 4 == lenDenom * 7) {
-                noteHeadType = "whole";
+                numer0 = 2 * lenNumer;
+                denom0 = 3 * lenDenom;
+            } else if (lenNumer % 7 == 0) {
                 dots = 2;
-            } else if (lenNumer * 2 == lenDenom) {
-                noteHeadType = "half";
+                numer0 = 4 * lenNumer;
+                denom0 = 7 * lenDenom;
+            } else {
                 dots = 0;
-            } else if (lenNumer * 4 == lenDenom * 3) {
+                numer0 = lenNumer;
+                denom0 = lenDenom;
+            }
+            if (numer0 > denom0) {
+                continue;
+            } else if (2 * numer0 > denom0) {
+                noteHeadType = "whole";
+            } else if (4 * numer0 > denom0) {
                 noteHeadType = "half";
-                dots = 1;
-            } else if (lenNumer * 8 == lenDenom * 7) {
-                noteHeadType = "half";
-                dots = 2;
             } else {
                 noteHeadType = "quarter";
-                if (lenNumer % 3 == 0) {
-                    dots = 1;
-                } else if (lenNumer % 7 == 0) {
-                    dots = 2;
-                } else {
-                    dots = 0;
-                }
             }
             noteHeads.push(new NoteHead(xRel, yRel, noteHeadType, dots, height.accidental ? height.accidental : "none"));
         } else {
             let restType: RestType;
             let dots: number;
-            // TODO: Consider how to treat note values
-            if (lenNumer == lenDenom) {
-                restType = "whole";
-                dots = 0;
-            } else if (lenNumer * 2 == lenDenom * 3) {
-                restType = "whole";
+
+            let numer0: number;
+            let denom0: number;
+            if (lenNumer % 3 == 0) {
                 dots = 1;
-            } else if (lenNumer * 4 == lenDenom * 7) {
-                restType = "whole";
+                numer0 = 2 * lenNumer;
+                denom0 = 3 * lenDenom;
+            } else if (lenNumer % 7 == 0) {
                 dots = 2;
-            } else if (lenNumer * 2 == lenDenom) {
-                restType = "half";
+                numer0 = 4 * lenNumer;
+                denom0 = 7 * lenDenom;
+            } else {
                 dots = 0;
-            } else if (lenNumer * 4 == lenDenom * 3) {
-                restType = "half";
-                dots = 1;
-            } else if (lenNumer * 8 == lenDenom * 7) {
-                restType = "half";
-                dots = 2;
-            } else if (lenNumer * 4 == lenDenom) {
-                restType = "quarter";
-                dots = 0;
-            } else if (lenNumer * 8 == lenDenom * 3) {
-                restType = "quarter";
-                dots = 1;
-            } else if (lenNumer * 16 == lenDenom * 7) {
-                restType = "quarter";
-                dots = 2;
-            } else if (lenNumer * 8 == lenDenom) {
-                restType = "eighth";
-                dots = 0;
-            } else if (lenNumer * 16 == lenDenom * 3) {
-                restType = "eighth";
-                dots = 1;
-            } else if (lenNumer * 32 == lenDenom * 7) {
-                restType = "eighth";
-                dots = 2;
-            } else if (lenNumer * 16 == lenDenom) {
-                restType = "sixteenth";
-                dots = 0;
-            } else if (lenNumer * 32 == lenDenom * 3) {
-                restType = "sixteenth";
-                dots = 1;
-            } else if (lenNumer * 64 == lenDenom * 7) {
-                restType = "sixteenth";
-                dots = 2;
+                numer0 = lenNumer;
+                denom0 = lenDenom;
             }
-            if (restType) {
-                rests.push(new Rest(xRel, restType, dots));
+            if (numer0 > denom0) {
+                continue;
+            } else if (2 * numer0 > denom0) {
+                restType = "whole";
+            } else if (4 * numer0 > denom0) {
+                restType = "half";
+            } else if (8 * numer0 > denom0) {
+                restType = "quarter";
+            } else if (16 * numer0 > denom0) {
+                restType = "eighth";
+            } else {
+                restType = "sixteenth";
             }
+            rests.push(new Rest(xRel, restType, dots));
         }
-        lengthPartialSum += lenNumer / lenDenom;
     }
     return new Bar(noteHeads, stems, beams, rests);
 }
