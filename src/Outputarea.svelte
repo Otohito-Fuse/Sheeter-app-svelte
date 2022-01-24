@@ -1,10 +1,15 @@
 <script lang="ts">
-    import type { Stave } from './module/classes';
+    import type { Bar, Stave } from './module/classes';
     import { viewBoxHeight, viewBoxWidth, yTitle, yFirstStave, yStaveInterval, xLeftMargin, clefWidth, xRightMargin, keySignatureWidthUnit, timeSignatureWidth } from './config/lengths';
     import StaveComponent from './svgComponents/StaveComponent.svelte';
     import NoteHeadQComponent from './svgComponents/NoteHeadQComponent.svelte';
     import NoteHeadHComponent from './svgComponents/NoteHeadHComponent.svelte';
     import NoteHeadWComponent from './svgComponents/NoteHeadWComponent.svelte';
+    import RestWComponent from './svgComponents/RestWComponent.svelte';
+    import RestHComponent from './svgComponents/RestHComponent.svelte';
+    import RestQComponent from './svgComponents/RestQComponent.svelte';
+    import RestSComponent from './svgComponents/RestSComponent.svelte';
+    import RestEComponent from './svgComponents/RestEComponent.svelte';
 
     export let width: number;
     $: height = width * viewBoxHeight / viewBoxWidth;
@@ -42,6 +47,23 @@
                     <NoteHeadHComponent {xRel} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
                 {:else}
                     <NoteHeadQComponent {xRel} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
+                {/if}
+            {/each}
+            {#each bar.rests as { xRel, restType, dots }}
+                {#if restType == "whole"}
+                    {#if bar.rests.length == 1}
+                        <RestWComponent xRel={0.5} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} />
+                    {:else}
+                        <RestWComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} />
+                    {/if}
+                {:else if restType == "half"}
+                    <RestHComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} />
+                {:else if restType == "quarter"}
+                    <RestQComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} />
+                {:else if restType == "eighth"}
+                    <RestEComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} />
+                {:else}
+                    <RestSComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, stave.bars.length, Math.abs(stave.keySignature), stave.timeSignatureNumer, stave.timeSignatureDenom)} />
                 {/if}
             {/each}
         {/each}
