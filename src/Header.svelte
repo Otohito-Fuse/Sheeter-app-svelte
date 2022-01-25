@@ -10,7 +10,7 @@
             <img draggable="false" class="img-logo" src={srcLogo} alt="logo">
         </div>
         <div class="wrap">
-            <h1>Lead Sheeter</h1>
+            <h1>Lead Sheeter (β)</h1>
         </div>
     </div>
     <div class="header-right">
