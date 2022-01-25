@@ -13,6 +13,8 @@
     import type { Accidental } from "../module/classes";
     import FlatComponent from "./FlatComponent.svelte";
     import SharpComponent from "./SharpComponent.svelte";
+    import DoubleFlatComponent from "./DoubleFlatComponent.svelte";
+    import NaturalComponent from "./NaturalComponent.svelte";
 
     $: cx = xLeftEnd + xRel * (xRightEnd - xLeftEnd);
     $: cy = yMiddle - yRel / 2 * yLineInterval;
@@ -43,4 +45,10 @@
 {/if}
 {#if accidental == "sharp"}
     <SharpComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
+{/if}
+{#if accidental == "double flat"}
+    <DoubleFlatComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
+{/if}
+{#if accidental == "natural"}
+    <NaturalComponent cx={cx - accidentalDistance} {cy} scaleRatio={1} />
 {/if}
