@@ -1,7 +1,9 @@
 <script lang="ts">
-    import { clefWidth, keySignatureWidthUnit, timeSignatureWidth, viewBoxWidth, xLeftMargin, xRightMargin, yChordHeight, yFirstStave, yStaveInterval } from "../config/lengths";
+    import { chordNoteSymbolSize, clefWidth, keySignatureWidthUnit, timeSignatureWidth, viewBoxWidth, xLeftMargin, xRightMargin, yChordHeight, yFirstStave, yStaveInterval } from "../config/lengths";
 
     import type { ChordPlaceHolder } from "../module/chordParser";
+    import ChordSuffixComponent from "./ChordSuffixComponent.svelte";
+    import NoteSymbolComponent from "./NoteSymbolComponent.svelte";
 
     export let xRel: number;
     export let i: number;
@@ -29,13 +31,20 @@
 </script>
 
 {#if chordPlaceHolder == "%"}
-<text></text>
+    <text></text>
 {:else if chordPlaceHolder == "/"}
-<text {x} {y} font-size="30" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif">
-    /
-</text>
+    <text {x} y={y + chordNoteSymbolSize * 0.4} font-size={chordNoteSymbolSize} text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif">
+        /
+    </text>
 {:else}
-<text {x} {y} font-size="30" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif">
-    {chordPlaceHolder.noteSymbol}{chordPlaceHolder.suffix1}{chordPlaceHolder.suffix2}
-</text>
+    {#if !!chordPlaceHolder.noteSymbol}
+        {#if !chordPlaceHolder.suffix1 && !chordPlaceHolder.suffix2}
+            <NoteSymbolComponent scale={1} noteSymbol={chordPlaceHolder.noteSymbol} accidental={chordPlaceHolder.accidental} cx={x} cy={y} />
+        {:else}
+            <NoteSymbolComponent scale={1} noteSymbol={chordPlaceHolder.noteSymbol} accidental={chordPlaceHolder.accidental} cx={x - chordNoteSymbolSize * 0.25} cy={y} />
+            <ChordSuffixComponent suffix1={chordPlaceHolder.suffix1} suffix2={chordPlaceHolder.suffix2} cx={x} cy={y} />
+        {/if}
+    {:else}
+        <text></text>
+    {/if}
 {/if}

@@ -44,4 +44,6 @@ export const keySignatureArrayFlat: number[] = [0, 3, -1, 2, -2, 1, -3];
 
 export const keySignatureArraySharp: number[] = [4, 1, 5, 2, -1, 3, 0];
 
-export const yChordHeight: number = yLineInterval * 6;
+export const yChordHeight: number = yLineInterval * 6.5;
+
+export const chordNoteSymbolSize: number = yLineInterval * 2.5;
