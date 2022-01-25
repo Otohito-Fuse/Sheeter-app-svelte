@@ -1,14 +1,18 @@
+import type { ChordInBar } from "./chordParser";
+
 export class Stave {
     bars: Array<Bar>;
     timeSignatureNumer: number;
     timeSignatureDenom: number;
     keySignature: number;
+    chords: Array<Array<ChordInBar>>;
 
-    constructor(bars: Array<Bar>, timeSignatureNumer: number, timeSignatureDenom: number, keySignature: number) {
+    constructor(bars: Array<Bar>, timeSignatureNumer: number, timeSignatureDenom: number, keySignature: number, chords: Array<Array<ChordInBar>>) {
         this.bars = bars;
         this.timeSignatureNumer = timeSignatureNumer;
         this.timeSignatureDenom = timeSignatureDenom;
         this.keySignature = keySignature;
+        this.chords = chords;
     }
 }
 
@@ -17,12 +21,14 @@ export class Bar {
     stems: Array<Stem>;
     beams: Array<Beam>;
     rests: Array<Rest>;
+    ties: Array<Tie>
 
-    constructor(noteHeads: Array<NoteHead>, stems: Array<Stem>, beams: Array<Beam>, rests: Array<Rest>) {
+    constructor(noteHeads: Array<NoteHead>, stems: Array<Stem>, beams: Array<Beam>, rests: Array<Rest>, ties: Array<Tie>) {
         this.noteHeads = noteHeads;
         this.stems = stems;
         this.beams = beams;
         this.rests = rests;
+        this.ties = ties;
     }
 }
 
@@ -41,6 +47,20 @@ export class NoteHead {
         this.noteHeadType = noteHeadType;
         this.dots = dots;
         this.accidental = accidental;
+    }
+}
+
+export class Tie {
+    xRelFrom: number;
+    xRelTo: number;
+    yRel: number;
+    isUpward: boolean;
+
+    constructor(xRelFrom: number, xRelTo: number, yRel: number, isUpward: boolean) {
+        this.xRelFrom = xRelFrom;
+        this.xRelTo = xRelTo;
+        this.yRel = yRel;
+        this.isUpward = isUpward;
     }
 }
 

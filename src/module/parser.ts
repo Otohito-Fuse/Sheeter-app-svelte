@@ -1,10 +1,14 @@
 import { barPaddingLeftRatio, barPaddingRightRatio } from "../config/lengths";
-import { Bar, Stave, Note, NoteSymbol, constructAccidental, constructNoteSymbol, Accidental, NoteHeight, NoteHeadType, NoteHead, Stem, Beam, Rest, RestType } from "./classes";
+import { parseChords } from "./chordParser";
+import { Bar, Stave, Note, NoteSymbol, constructAccidental, constructNoteSymbol, Accidental, NoteHeight, NoteHeadType, NoteHead, Stem, Beam, Rest, RestType, Tie } from "./classes";
 
-export function parse(s: string): Array<Stave> {
-    let bars: string[] = s.split("|");
+export function parse(notes: string, chords: string): Array<Stave> {
+    // About notes
+    let bars: string[] = notes.split("|");
     let configString: string = bars.shift().trim();
-    bars.pop();
+    if (!bars[bars.length - 1] || bars[bars.length - 1].match(/^\s*$/)) {
+        bars.pop();
+    }
     let n: number = 0;
     let m: number = -1;
     let output: Array<Stave> = [];
@@ -13,9 +17,9 @@ export function parse(s: string): Array<Stave> {
     while (n < bars.length) {
         if (n % 4 == 0) {
             if (n == 0) {
-                output.push(new Stave([parseBar(bars[n])], config.timeSignatureNumer, config.timeSignatureDenom, config.keySignature));
+                output.push(new Stave([parseBar(bars[n])], config.timeSignatureNumer, config.timeSignatureDenom, config.keySignature, []));
             } else {
-                output.push(new Stave([parseBar(bars[n])], 0, 0, config.keySignature));
+                output.push(new Stave([parseBar(bars[n])], 0, 0, config.keySignature, []));
             }
             m++;
         } else {
@@ -23,6 +27,24 @@ export function parse(s: string): Array<Stave> {
         }
         n++;
     }
+
+    // About chords
+    let chordBars: string[] = chords.split("|");
+    chordBars.shift();
+    if (!chordBars[chordBars.length - 1] || chordBars[chordBars.length - 1].match(/^\s*$/)) {
+        chordBars.pop();
+    }
+    let k: number = 0;
+    for (let i: number = 0; i < output.length; i++) {
+        if (k == chordBars.length) break;
+        for (let j: number = 0; j < output[i].bars.length; j++) {
+            if (k == chordBars.length) break;
+
+            output[i].chords.push(parseChords(chordBars[k]));
+            k++;
+        }
+    }
+
     return output;
 }
 
@@ -64,7 +86,7 @@ function parseBar(s: string): Bar {
     let notes: Array<Note> = [];
     for (let noteString of noteStrings) {
         let note = parseNote(noteString);
-        if (note) {
+        if (!!note) {
             notes.push(note);
         }
     }
@@ -78,22 +100,12 @@ function parseNote(s: string): Note | null {
     }
 
     let heightString: string = s.split(".")[0];
-    let lengthString: string = s.split(".")[1].split(":")[0];
-
-    let lenNumer: number;
-    let lenDenom: number;
+    let lengthString: string = s.split(".")[1].split(":")[0];    
+    
     let lenNumerString = lengthString.split("/")[0];
     let lenDenomString = lengthString.split("/")[1];
-    if (!lenNumerString) {
-        lenNumer = 1;
-    } else {
-        lenNumer = parseInt(lenNumerString);
-    }
-    if (!lenDenomString) {
-        lenDenom = 1;
-    } else {
-        lenDenom = parseInt(lenDenomString);
-    }
+    let lenNumer: number = !!lenNumerString ? parseInt(lenNumerString) : 1;
+    let lenDenom: number = !!lenDenomString ? parseInt(lenDenomString) : 1;
 
     let lenGcd: number = gcd(lenNumer, lenDenom);
     lenNumer = Math.round(lenNumer / lenGcd);
@@ -108,7 +120,6 @@ function parseNote(s: string): Note | null {
     let accidental: Accidental | null = constructAccidental(symbolWithAccidental.substring(1));
     if (symbol && accidental && heightString.match(/\d+/)) {
         let octave: number = parseInt(heightString.match(/\d+/)[0]);
-        // TODO: Consider how to treat ties
         return new Note(new NoteHeight(symbol, octave, accidental), lenNumer, lenDenom, s.includes(":t"));
     } else {
         return null;
@@ -124,6 +135,7 @@ function notesToElements(notes: Array<Note>): Bar {
     let stems: Array<Stem> = [];
     let beams: Array<Beam> = [];
     let rests: Array<Rest> = [];
+    let ties: Array<Tie> = [];
 
     let lengthSum: number = 0;
     for (let { lenNumer, lenDenom } of notes) {
@@ -133,12 +145,12 @@ function notesToElements(notes: Array<Note>): Bar {
     for (let { height, lenNumer, lenDenom } of notes) {
         let xRel: number = barPaddingLeftRatio + (1 - barPaddingLeftRatio - barPaddingRightRatio) * (lengthPartialSum / lengthSum);
         lengthPartialSum += lenNumer / lenDenom;
-        if (height) {
+        if (!!height) {
             let yRel: number = height.toYRel();
             
             let noteHeadType: NoteHeadType;
             let dots: number;
-            
+
             let numer0: number;
             let denom0: number;
             if (lenNumer % 3 == 0) {
@@ -199,5 +211,5 @@ function notesToElements(notes: Array<Note>): Bar {
             rests.push(new Rest(xRel, restType, dots));
         }
     }
-    return new Bar(noteHeads, stems, beams, rests);
+    return new Bar(noteHeads, stems, beams, rests, ties);
 }

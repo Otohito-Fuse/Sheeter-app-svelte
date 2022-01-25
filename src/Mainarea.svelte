@@ -72,7 +72,7 @@
         saveToStorage('notes', notes);
     }
 
-    $: staves = parse(notes);
+    $: staves = parse(notes, chords);
 </script>
 
 {#if windowWidth > widthThreshold}

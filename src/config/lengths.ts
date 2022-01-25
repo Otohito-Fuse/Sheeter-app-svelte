@@ -6,9 +6,9 @@ export const yTitle: number = 300;
 
 export const yFirstStave: number = 600;
 
-export const yStaveInterval: number = 250;
+export const yStaveInterval: number = 275;
 
-export const yLineInterval: number = 18;
+export const yLineInterval: number = 17.5;
 
 export const xLeftMargin: number = 180;
 
@@ -43,3 +43,5 @@ export const accidentalDistance: number = yLineInterval * 1.7;
 export const keySignatureArrayFlat: number[] = [0, 3, -1, 2, -2, 1, -3];
 
 export const keySignatureArraySharp: number[] = [4, 1, 5, 2, -1, 3, 0];
+
+export const yChordHeight: number = yLineInterval * 6;
