@@ -28,6 +28,18 @@ export function parse(notes: string, chords: string): Array<Stave> {
         n++;
     }
 
+    // About ties between two staffs
+    output.slice(0, -1).forEach(({ bars }, i) => {
+        let numOfBars: number = bars.length;
+        let numOfTiesOfLastBar: number = bars[numOfBars - 1].ties.length;
+        if (numOfTiesOfLastBar > 0 && bars[numOfBars - 1].ties[numOfTiesOfLastBar - 1].xRelTo >= 1) {
+            bars[numOfBars - 1].ties[numOfTiesOfLastBar - 1].xRelTo = 1;
+            let yRel: number = bars[numOfBars - 1].ties[numOfTiesOfLastBar - 1].yRel;
+            let isUpward: boolean = bars[numOfBars - 1].ties[numOfTiesOfLastBar - 1].isUpward;
+            output[i + 1].bars[0].ties.push(new Tie(0, barPaddingLeftRatio, yRel, isUpward));
+        }
+    })
+
     // About chords
     let chordBars: string[] = chords.split("|");
     chordBars.shift();
@@ -143,7 +155,7 @@ function notesToElements(notes: Array<Note>): Bar {
         lengthArray[i] = lengthArray[i - 1] + (notes[i - 1].lenNumer / notes[i - 1].lenDenom);
     }
     for (let i: number = 0; i < n; i++) {
-        let { height, lenNumer, lenDenom } = notes[i]
+        let { height, lenNumer, lenDenom, withTie } = notes[i]
         let xRel: number = barPaddingLeftRatio + (1 - barPaddingLeftRatio - barPaddingRightRatio) * (lengthArray[i] / lengthArray[n]);
         if (!!height) {
             let yRel: number = height.toYRel();
@@ -176,6 +188,12 @@ function notesToElements(notes: Array<Note>): Bar {
                 noteHeadType = "quarter";
             }
             noteHeads.push(new NoteHead(xRel, yRel, noteHeadType, dots, height.accidental ? height.accidental : "none"));
+
+            if (withTie) {
+                let isUpward: boolean = yRel >= 0 ? true : false;
+                let xRelTo: number = i == n - 1 ? 1 + barPaddingLeftRatio : barPaddingLeftRatio + (1 - barPaddingLeftRatio - barPaddingRightRatio) * (lengthArray[i + 1] / lengthArray[n]);
+                ties.push(new Tie(xRel, xRelTo, yRel, isUpward));
+            }
         } else {
             let restType: RestType;
             let dots: number;

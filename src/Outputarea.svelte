@@ -6,6 +6,7 @@
     import NoteHeadComponent from './svgComponents/NoteHeadComponent.svelte';
     import TitleComponent from './svgComponents/TitleComponent.svelte';
     import ChordComponent from './svgComponents/ChordComponent.svelte';
+    import TiesComponent from './svgComponents/TiesComponent.svelte';
 
     export let width: number;
     $: height = width * viewBoxHeight / viewBoxWidth;
@@ -30,6 +31,7 @@
             {#each bar.rests as { xRel, restType, dots }}
                 <RestComponent {restType} {xRel} {dots} {i} {j} {bar} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
             {/each}
+            <TiesComponent {i} {j} {bar} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
         {/each}
         {#each stave.chords as chords, j}
             {#each chords as { chordPlaceHolder, xRel }}
