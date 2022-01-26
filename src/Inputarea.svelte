@@ -2,7 +2,7 @@
     import Input from "./Input.svelte";
     import Textarea from "./Textarea.svelte";
 
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher } from "svelte";
 
     export let title: string;
     export let chords: string;
@@ -11,30 +11,33 @@
     const dispatch = createEventDispatcher();
 
     const setSampleValues = () => {
-        dispatch('setSampleValues');
-    }
+        dispatch("setSampleValues");
+    };
 
     const resetValues = () => {
-        dispatch('resetValues');
-    }
+        dispatch("resetValues");
+    };
 </script>
 
 <div class="whole">
     <div class="each-block title-area">
         <div class="name">
-            <p>
-                Title:
-            </p>
+            <p>Title:</p>
         </div>
         <div class="contents-wrapper">
             <div class="contents-title">
                 <div class="title-input">
-                    <Input bind:value={title} placeholder="Input a title here." />
+                    <Input
+                        bind:value={title}
+                        placeholder="Input a title here."
+                    />
                 </div>
                 <div class="title-menus">
                     <p>
-                        <span class="link" on:click={setSampleValues}>sample</span>
-                        <span style="display: inline-block; width: 3px;"></span>
+                        <span class="link" on:click={setSampleValues}
+                            >sample</span
+                        >
+                        <span style="display: inline-block; width: 3px;" />
                         <span class="link" on:click={resetValues}>reset</span>
                     </p>
                 </div>
@@ -43,21 +46,20 @@
     </div>
     <div class="each-block chords-area">
         <div class="name">
-            <p>
-                Chords:
-            </p>
+            <p>Chords:</p>
         </div>
         <div class="contents-wrapper">
             <div class="contents-textarea">
-                <Textarea bind:value={chords} placeholder="Input chords here." />
+                <Textarea
+                    bind:value={chords}
+                    placeholder="Input chords here."
+                />
             </div>
         </div>
     </div>
     <div class="each-block notes-area">
         <div class="name">
-            <p>
-                Notes:
-            </p>
+            <p>Notes:</p>
         </div>
         <div class="contents-wrapper">
             <div class="contents-textarea">
@@ -67,7 +69,6 @@
     </div>
 </div>
 
-
 <style>
     .whole {
         height: 100%;
@@ -76,12 +77,12 @@
 
     .each-block {
         width: 100%;
-        display : -webkit-box;     /* old Android */
-        display : -webkit-flex;    /* Safari etc. */
-        display : -ms-flexbox;     /* IE10        */
-        display : flex;
+        display: -webkit-box; /* old Android */
+        display: -webkit-flex; /* Safari etc. */
+        display: -ms-flexbox; /* IE10        */
+        display: flex;
     }
-    
+
     .title-area {
         height: 80px;
         border-bottom: 1px solid #ddd;
@@ -122,10 +123,10 @@
         width: calc(100% - 15px);
         height: calc(100% - 30px);
         margin: 15px 10px 15px 5px;
-        display : -webkit-box;     /* old Android */
-        display : -webkit-flex;    /* Safari etc. */
-        display : -ms-flexbox;     /* IE10        */
-        display : flex;
+        display: -webkit-box; /* old Android */
+        display: -webkit-flex; /* Safari etc. */
+        display: -ms-flexbox; /* IE10        */
+        display: flex;
     }
 
     .title-input {
@@ -139,10 +140,10 @@
     }
 
     .link {
-        color: rgb(0,100,200);
+        color: rgb(0, 100, 200);
         text-decoration: underline;
         cursor: pointer;
-        transition: .1s;
+        transition: 0.1s;
 
         user-select: none; /* CSS3 */
         -moz-user-select: none; /* Firefox */
