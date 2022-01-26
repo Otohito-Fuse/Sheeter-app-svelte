@@ -1,7 +1,7 @@
 <script lang="ts">
     import { clefWidth, keySignatureWidthUnit, timeSignatureWidth, viewBoxWidth, xLeftMargin, xRightMargin, yFirstStave, yStaveInterval } from "../config/lengths";
 
-    import type { Bar, RestType } from "../module/classes";
+    import type { Rest, RestType } from "../module/classes";
     import RestEComponent from "./RestEComponent.svelte";
     import RestHComponent from "./RestHComponent.svelte";
     import RestQComponent from "./RestQComponent.svelte";
@@ -13,7 +13,7 @@
     export let dots: number;
     export let i: number;
     export let j: number;
-    export let bar: Bar;
+    export let rests: Array<Rest>
     export let staveBarsLength: number;
     export let numOfKeySignatures: number;
     export let timeSignatureNumer: number;
@@ -30,7 +30,7 @@
 
 
 {#if restType == "whole"}
-    {#if bar.rests.length == 1}
+    {#if rests.length == 1}
         <RestWComponent xRel={0.5} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
     {:else}
         <RestWComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />

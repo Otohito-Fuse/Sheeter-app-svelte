@@ -29,9 +29,9 @@
                 <NoteHeadComponent {noteHeadType} {xRel} {yRel} {dots} {accidental} {i} {j} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
             {/each}
             {#each bar.rests as { xRel, restType, dots }}
-                <RestComponent {restType} {xRel} {dots} {i} {j} {bar} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
+                <RestComponent {restType} {xRel} {dots} {i} {j} rests={bar.rests} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
             {/each}
-            <TiesComponent {i} {j} {bar} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
+            <TiesComponent {i} {j} ties={bar.ties} staveBarsLength={stave.bars.length} numOfKeySignatures={Math.abs(stave.keySignature)} timeSignatureNumer={stave.timeSignatureNumer} timeSignatureDenom={stave.timeSignatureDenom} />
         {/each}
         {#each stave.chords as chords, j}
             {#each chords as { chordPlaceHolder, xRel }}

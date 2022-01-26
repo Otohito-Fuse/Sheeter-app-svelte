@@ -1,11 +1,11 @@
 <script lang="ts">
     import { clefWidth, keySignatureWidthUnit, timeSignatureWidth, viewBoxWidth, xLeftMargin, xRightMargin, yFirstStave, yLineInterval, yStaveInterval } from "../config/lengths";
-    import type { Bar } from "../module/classes";
+    import type { Tie } from "../module/classes";
     import TieComponent from "./TieComponent.svelte";
 
     export let i: number;
     export let j: number;
-    export let bar: Bar;
+    export let ties: Array<Tie>
     export let staveBarsLength: number;
     export let numOfKeySignatures: number;
     export let timeSignatureNumer: number;
@@ -26,6 +26,6 @@
     $: xGap = yLineInterval * 0.5;
 </script>
 
-{#each bar.ties as { xRelFrom, xRelTo, yRel, isUpward }}
+{#each ties as { xRelFrom, xRelTo, yRel, isUpward }}
     <TieComponent xFrom={calcX(xRelFrom) + xGap} xTo={calcX(xRelTo) - xGap} y={yMiddle - (yRel + (isUpward ? 1.25 : -1.25)) * yLineInterval / 2} {isUpward} />
 {/each}
