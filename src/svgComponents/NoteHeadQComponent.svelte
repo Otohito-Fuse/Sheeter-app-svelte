@@ -7,7 +7,11 @@
     export let dots: number;
     export let accidental: Accidental;
 
-    import { yLineInterval, xFirstDot, accidentalDistance } from "../config/lengths";
+    import {
+        yLineInterval,
+        xFirstDot,
+        accidentalDistance,
+    } from "../config/lengths";
     import DotsComponent from "./DotsComponent.svelte";
     import LedgerLineComponent from "./LedgerLineComponent.svelte";
     import type { Accidental } from "../module/classes";
@@ -20,9 +24,8 @@
     const ry: number = yLineInterval * 0.2542448 * 1.9;
 
     $: cx = xLeftEnd + xRel * (xRightEnd - xLeftEnd);
-    $: cy = yMiddle - yRel / 2 * yLineInterval;
+    $: cy = yMiddle - (yRel / 2) * yLineInterval;
 </script>
-
 
 <ellipse
     style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
@@ -30,7 +33,8 @@
     {cy}
     {rx}
     {ry}
-    transform="rotate(-25, {cx}, {cy})" />
+    transform="rotate(-25, {cx}, {cy})"
+/>
 <DotsComponent xFirstDotAbs={cx + xFirstDot} {dots} {yRel} {yMiddle} />
 <LedgerLineComponent {cx} {yMiddle} {yRel} />
 {#if accidental == "flat"}

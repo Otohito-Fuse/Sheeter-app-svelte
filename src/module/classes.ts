@@ -7,7 +7,13 @@ export class Stave {
     keySignature: number;
     chords: Array<Array<ChordInBar>>;
 
-    constructor(bars: Array<Bar>, timeSignatureNumer: number, timeSignatureDenom: number, keySignature: number, chords: Array<Array<ChordInBar>>) {
+    constructor(
+        bars: Array<Bar>,
+        timeSignatureNumer: number,
+        timeSignatureDenom: number,
+        keySignature: number,
+        chords: Array<Array<ChordInBar>>
+    ) {
         this.bars = bars;
         this.timeSignatureNumer = timeSignatureNumer;
         this.timeSignatureDenom = timeSignatureDenom;
@@ -21,9 +27,15 @@ export class Bar {
     stems: Array<Stem>;
     beams: Array<Beam>;
     rests: Array<Rest>;
-    ties: Array<Tie>
+    ties: Array<Tie>;
 
-    constructor(noteHeads: Array<NoteHead>, stems: Array<Stem>, beams: Array<Beam>, rests: Array<Rest>, ties: Array<Tie>) {
+    constructor(
+        noteHeads: Array<NoteHead>,
+        stems: Array<Stem>,
+        beams: Array<Beam>,
+        rests: Array<Rest>,
+        ties: Array<Tie>
+    ) {
         this.noteHeads = noteHeads;
         this.stems = stems;
         this.beams = beams;
@@ -41,7 +53,13 @@ export class NoteHead {
     dots: number;
     accidental: Accidental;
 
-    constructor(xRel: number, yRel: number, noteHeadType: NoteHeadType, dots: number, accidental: Accidental) {
+    constructor(
+        xRel: number,
+        yRel: number,
+        noteHeadType: NoteHeadType,
+        dots: number,
+        accidental: Accidental
+    ) {
         this.xRel = xRel;
         this.yRel = yRel;
         this.noteHeadType = noteHeadType;
@@ -56,7 +74,12 @@ export class Tie {
     yRel: number;
     isUpward: boolean;
 
-    constructor(xRelFrom: number, xRelTo: number, yRel: number, isUpward: boolean) {
+    constructor(
+        xRelFrom: number,
+        xRelTo: number,
+        yRel: number,
+        isUpward: boolean
+    ) {
         this.xRelFrom = xRelFrom;
         this.xRelTo = xRelTo;
         this.yRel = yRel;
@@ -72,7 +95,12 @@ export class Stem {
     yRelFlag: number;
     flagType: FlagType;
 
-    constructor(xRel: number, yRelHead: number, yRelFlag: number, flagType: FlagType) {
+    constructor(
+        xRel: number,
+        yRelHead: number,
+        yRelFlag: number,
+        flagType: FlagType
+    ) {
         this.xRel = xRel;
         this.yRelHead = yRelHead;
         this.yRelFlag = yRelFlag;
@@ -86,7 +114,12 @@ export class Beam {
     yRelLeft: number;
     yRelRight: number;
 
-    constructor(xRelLeft: number, xRelRight: number, yRelLeft: number, yRelRight: number) {
+    constructor(
+        xRelLeft: number,
+        xRelRight: number,
+        yRelLeft: number,
+        yRelRight: number
+    ) {
         this.xRelLeft = xRelLeft;
         this.xRelRight = xRelRight;
         this.yRelLeft = yRelLeft;
@@ -113,7 +146,7 @@ export const noteSymbols: Array<string> = ["A", "B", "C", "D", "E", "F", "G"];
 export type NoteSymbol = "A" | "B" | "C" | "D" | "E" | "F" | "G";
 
 export function constructNoteSymbol(s: string): NoteSymbol | null {
-    switch(s) {
+    switch (s) {
         case "A":
             return "A";
         case "B":
@@ -133,10 +166,16 @@ export function constructNoteSymbol(s: string): NoteSymbol | null {
     }
 }
 
-export type Accidental = "natural" | "sharp" | "double sharp" | "flat" | "double flat" | "none";
+export type Accidental =
+    | "natural"
+    | "sharp"
+    | "double sharp"
+    | "flat"
+    | "double flat"
+    | "none";
 
 export function constructAccidental(s: string): Accidental | null {
-    switch(s) {
+    switch (s) {
         case "":
             return "none";
         case "n":
@@ -159,14 +198,18 @@ export class NoteHeight {
     octave: number;
     accidental: Accidental | null;
 
-    constructor(symbol: NoteSymbol, octave: number, accidental: Accidental | null) {
+    constructor(
+        symbol: NoteSymbol,
+        octave: number,
+        accidental: Accidental | null
+    ) {
         this.symbol = symbol;
         this.octave = octave;
         this.accidental = accidental;
     }
 
     toYRel(): number {
-        switch(this.symbol) {
+        switch (this.symbol) {
             case "A":
                 return -1 + 7 * (this.octave - 4);
             case "B":
@@ -191,7 +234,12 @@ export class Note {
     lenDenom: number;
     withTie: boolean;
 
-    constructor(height: NoteHeight | null, lenNumer: number, lenDenom: number, withTie: boolean) {
+    constructor(
+        height: NoteHeight | null,
+        lenNumer: number,
+        lenDenom: number,
+        withTie: boolean
+    ) {
         this.height = height;
         this.lenNumer = lenNumer;
         this.lenDenom = lenDenom;

@@ -12,13 +12,15 @@
         <circle
             style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
             cx={xFirstDotAbs + i * xDotInterval}
-            cy={yMiddle - (yRel + 1) / 2 * yLineInterval}
-            r={rdot} />
+            cy={yMiddle - ((yRel + 1) / 2) * yLineInterval}
+            r={rdot}
+        />
     {:else}
         <circle
             style="fill: #000000; fill-rule: evenodd; stroke-width: 0"
             cx={xFirstDotAbs + i * xDotInterval}
-            cy={yMiddle - yRel / 2 * yLineInterval}
-            r={rdot} />
+            cy={yMiddle - (yRel / 2) * yLineInterval}
+            r={rdot}
+        />
     {/if}
 {/each}

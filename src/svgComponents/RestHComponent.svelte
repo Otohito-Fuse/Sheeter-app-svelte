@@ -11,9 +11,10 @@
     $: cx = xLeftEnd + xRel * (xRightEnd - xLeftEnd);
 </script>
 
-<rect 
+<rect
     x={cx - yLineInterval}
     y={yMiddle - yLineInterval / 2}
     width={yLineInterval * 2}
-    height={yLineInterval / 2} />
+    height={yLineInterval / 2}
+/>
 <DotsComponent xFirstDotAbs={cx + xFirstDot * 1.1} {dots} yRel={0} {yMiddle} />

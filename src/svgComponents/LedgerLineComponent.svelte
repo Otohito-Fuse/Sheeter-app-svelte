@@ -1,5 +1,9 @@
 <script lang="ts">
-    import { ledgerLineLength, lineWidth, yLineInterval } from "../config/lengths";
+    import {
+        ledgerLineLength,
+        lineWidth,
+        yLineInterval,
+    } from "../config/lengths";
 
     export let cx: number;
     export let yMiddle: number;
@@ -14,7 +18,8 @@
             x2={cx + ledgerLineLength / 2}
             y2={yMiddle - (i + 3) * yLineInterval}
             stroke="black"
-            stroke-width={lineWidth} />
+            stroke-width={lineWidth}
+        />
     {/each}
 {/if}
 {#if yRel <= -6}
@@ -25,6 +30,7 @@
             x2={cx + ledgerLineLength / 2}
             y2={yMiddle + (i + 3) * yLineInterval}
             stroke="black"
-            stroke-width={lineWidth} />
+            stroke-width={lineWidth}
+        />
     {/each}
 {/if}
