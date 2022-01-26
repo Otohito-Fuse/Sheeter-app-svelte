@@ -28,7 +28,7 @@
     {:else if suffix2.charAt(i) == "b"}
         <FlatComponent cx={x2 + (2 * i + 1) * chordSuffixSize / 4} cy={y2 - chordSuffixSize / 4} scaleRatio={0.6} />
     {:else}
-        <text x={x2 + i * chordSuffixSize / 2} y={y2} font-size={chordSuffixSize} font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif">
+        <text x={x2 + (2 * i + 1) * chordSuffixSize / 4} y={y2} font-size={chordSuffixSize} text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif">
             {suffix2.charAt(i)}
         </text>
     {/if}
