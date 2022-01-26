@@ -137,14 +137,14 @@ function notesToElements(notes: Array<Note>): Bar {
     let rests: Array<Rest> = [];
     let ties: Array<Tie> = [];
 
-    let lengthSum: number = 0;
-    for (let { lenNumer, lenDenom } of notes) {
-        lengthSum += lenNumer / lenDenom;
+    let n: number = notes.length;
+    let lengthArray: Array<number> = Array(n + 1).fill(0);
+    for (let i: number = 1; i <= n; i++) {
+        lengthArray[i] = lengthArray[i - 1] + (notes[i - 1].lenNumer / notes[i - 1].lenDenom);
     }
-    let lengthPartialSum: number = 0;
-    for (let { height, lenNumer, lenDenom } of notes) {
-        let xRel: number = barPaddingLeftRatio + (1 - barPaddingLeftRatio - barPaddingRightRatio) * (lengthPartialSum / lengthSum);
-        lengthPartialSum += lenNumer / lenDenom;
+    for (let i: number = 0; i < n; i++) {
+        let { height, lenNumer, lenDenom } = notes[i]
+        let xRel: number = barPaddingLeftRatio + (1 - barPaddingLeftRatio - barPaddingRightRatio) * (lengthArray[i] / lengthArray[n]);
         if (!!height) {
             let yRel: number = height.toYRel();
             
