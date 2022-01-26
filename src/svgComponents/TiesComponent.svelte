@@ -6,7 +6,7 @@
     export let i: number;
     export let j: number;
     export let ties: Array<Tie>
-    export let staveBarsLength: number;
+    export let numOfBars: number;
     export let numOfKeySignatures: number;
     export let timeSignatureNumer: number;
     export let timeSignatureDenom: number;
@@ -15,9 +15,9 @@
 
     $: calcXLeftEnd = (k: number) => {
         if (timeSignatureNumer == 0 && timeSignatureDenom == 0) {
-            return xLeftMargin + clefWidth + numOfKeySignatures * keySignatureWidthUnit + (viewBoxWidth - xLeftMargin - clefWidth - xRightMargin - numOfKeySignatures * keySignatureWidthUnit) * k / staveBarsLength;
+            return xLeftMargin + clefWidth + numOfKeySignatures * keySignatureWidthUnit + (viewBoxWidth - xLeftMargin - clefWidth - xRightMargin - numOfKeySignatures * keySignatureWidthUnit) * k / numOfBars;
         } else {
-            return xLeftMargin + clefWidth + numOfKeySignatures * keySignatureWidthUnit + timeSignatureWidth + (viewBoxWidth - xLeftMargin - clefWidth - xRightMargin - numOfKeySignatures * keySignatureWidthUnit - timeSignatureWidth) * k / staveBarsLength;
+            return xLeftMargin + clefWidth + numOfKeySignatures * keySignatureWidthUnit + timeSignatureWidth + (viewBoxWidth - xLeftMargin - clefWidth - xRightMargin - numOfKeySignatures * keySignatureWidthUnit - timeSignatureWidth) * k / numOfBars;
         }
     }
 

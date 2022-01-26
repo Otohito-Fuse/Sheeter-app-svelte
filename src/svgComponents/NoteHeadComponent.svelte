@@ -13,7 +13,7 @@
     export let accidental: Accidental;
     export let i: number;
     export let j: number;
-    export let staveBarsLength: number;
+    export let numOfBars: number;
     export let numOfKeySignatures: number;
     export let timeSignatureNumer: number;
     export let timeSignatureDenom: number;
@@ -28,9 +28,9 @@
 </script>
 
 {#if noteHeadType == "whole"}
-    <NoteHeadWComponent {xRel} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
+    <NoteHeadWComponent {xRel} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
 {:else if noteHeadType == "half"}
-    <NoteHeadHComponent {xRel} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
+    <NoteHeadHComponent {xRel} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
 {:else}
-    <NoteHeadQComponent {xRel} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
+    <NoteHeadQComponent {xRel} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} {yRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} {accidental} />
 {/if}

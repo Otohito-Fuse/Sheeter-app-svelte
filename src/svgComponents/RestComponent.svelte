@@ -14,7 +14,7 @@
     export let i: number;
     export let j: number;
     export let rests: Array<Rest>
-    export let staveBarsLength: number;
+    export let numOfBars: number;
     export let numOfKeySignatures: number;
     export let timeSignatureNumer: number;
     export let timeSignatureDenom: number;
@@ -31,16 +31,16 @@
 
 {#if restType == "whole"}
     {#if rests.length == 1}
-        <RestWComponent xRel={0.5} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
+        <RestWComponent xRel={0.5} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
     {:else}
-        <RestWComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
+        <RestWComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
     {/if}
 {:else if restType == "half"}
-    <RestHComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
+    <RestHComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
 {:else if restType == "quarter"}
-    <RestQComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
+    <RestQComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
 {:else if restType == "eighth"}
-    <RestEComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
+    <RestEComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
 {:else}
-    <RestSComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, staveBarsLength, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
+    <RestSComponent {xRel} yMiddle={yFirstStave + yStaveInterval * i} {dots} xLeftEnd={calcXLeftEnd(j, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} xRightEnd={calcXLeftEnd(j + 1, numOfBars, numOfKeySignatures, timeSignatureNumer, timeSignatureDenom)} />
 {/if}
