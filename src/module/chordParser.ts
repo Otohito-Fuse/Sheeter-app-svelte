@@ -27,7 +27,7 @@ export class Chord {
     }
 }
 
-export type ChordPlaceHolder = Chord | "%" | "/";
+export type ChordPlaceHolder = Chord | "%" | "/" | "N.C.";
 
 export function parseChord(s: string): ChordPlaceHolder | null {
     if (s == "%") {
@@ -35,6 +35,9 @@ export function parseChord(s: string): ChordPlaceHolder | null {
     }
     if (s == "/") {
         return "/";
+    }
+    if (s == "N.C.") {
+        return "N.C.";
     }
     if (
         s.match(

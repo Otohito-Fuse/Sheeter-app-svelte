@@ -100,6 +100,16 @@
     >
         /
     </text>
+{:else if chordPlaceHolder == "N.C."}
+    <text
+        {x}
+        y={y + chordNoteSymbolSize * 0.4}
+        font-size={chordNoteSymbolSize * 0.8}
+        text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif"
+    >
+        N.C.
+    </text>
 {:else if !!chordPlaceHolder.noteSymbol}
     {#if !chordPlaceHolder.suffix1 && !chordPlaceHolder.suffix2}
         <NoteSymbolComponent
