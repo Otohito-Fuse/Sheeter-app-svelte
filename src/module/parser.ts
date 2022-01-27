@@ -26,13 +26,30 @@ export function parse(notes: string, chords: string): Array<Stave> {
         bars.pop();
     }
     let n: number = 0;
-    let m: number = -1;
+    let j: number = 3;
+    let i: number = -1;
     let output: Array<Stave> = [];
 
     let config = parseConfig(configString);
     while (n < bars.length) {
-        if (n % 4 == 0) {
-            if (n == 0) {
+        if (bars[n] == "" && i >= 0 && !output[i].bars[j].withDoubleBar) {
+            output[i].bars[j].withDoubleBar = true;
+            n++;
+            continue;
+        }
+        if (bars[n] == "" && i >= 0 && output[i].bars[j].withDoubleBar) {
+            output[i].bars[j].withEndBar = true;
+            n++;
+            continue;
+        }
+        if (j == 3) {
+            j = 0;
+            i++;
+        } else {
+            j++;
+        }
+        if (j == 0) {
+            if (i == 0) {
                 output.push(
                     new Stave(
                         [parseBar(bars[n])],
@@ -53,9 +70,8 @@ export function parse(notes: string, chords: string): Array<Stave> {
                     )
                 );
             }
-            m++;
         } else {
-            output[m].bars.push(parseBar(bars[n]));
+            output[i].bars.push(parseBar(bars[n]));
         }
         n++;
     }
@@ -246,7 +262,12 @@ function notesToElements(notes: Array<Note>): Bar {
                 noteHeadType = "quarter";
                 if (8 * numer0 > denom0) {
                     stems.push(
-                        new Stem(xRel, yRel, yRel + (yRel >= 0 ? -7 : 7), "none")
+                        new Stem(
+                            xRel,
+                            yRel,
+                            yRel + (yRel >= 0 ? -7 : 7),
+                            "none"
+                        )
                     );
                 } else if (16 * numer0 > denom0) {
                     stems.push(
@@ -323,5 +344,5 @@ function notesToElements(notes: Array<Note>): Bar {
             rests.push(new Rest(xRel, restType, dots));
         }
     }
-    return new Bar(noteHeads, stems, beams, rests, ties);
+    return new Bar(noteHeads, stems, beams, rests, ties, false, false);
 }

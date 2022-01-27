@@ -30,25 +30,15 @@
     <TitleComponent {title} />
 
     {#each staves as stave, i}
-        {#if i != staves.length - 1}
-            <StaveComponent
-                yMiddle={yFirstStave + yStaveInterval * i}
-                numOfBars={stave.bars.length}
-                isLastStave={false}
-                timeSignatureNumer={stave.timeSignatureNumer}
-                timeSignatureDenom={stave.timeSignatureDenom}
-                keySignature={stave.keySignature}
-            />
-        {:else}
-            <StaveComponent
-                yMiddle={yFirstStave + yStaveInterval * i}
-                numOfBars={stave.bars.length}
-                isLastStave={true}
-                timeSignatureNumer={stave.timeSignatureNumer}
-                timeSignatureDenom={stave.timeSignatureDenom}
-                keySignature={stave.keySignature}
-            />
-        {/if}
+        <StaveComponent
+            yMiddle={yFirstStave + yStaveInterval * i}
+            numOfBars={stave.bars.length}
+            doubleBarArray={stave.bars.map((bar) => bar.withDoubleBar)}
+            endBarArray={stave.bars.map((bar) => bar.withEndBar)}
+            timeSignatureNumer={stave.timeSignatureNumer}
+            timeSignatureDenom={stave.timeSignatureDenom}
+            keySignature={stave.keySignature}
+        />
         {#each stave.bars as bar, j}
             {#each bar.noteHeads as { xRel, yRel, noteHeadType, dots, accidental }}
                 <NoteHeadComponent

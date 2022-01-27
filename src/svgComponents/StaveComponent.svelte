@@ -1,7 +1,8 @@
 <script lang="ts">
     export let yMiddle: number;
-    export let isLastStave: boolean;
     export let numOfBars: number;
+    export let doubleBarArray: Array<boolean>;
+    export let endBarArray: Array<boolean>;
     export let timeSignatureNumer: number;
     export let timeSignatureDenom: number;
     export let keySignature: number;
@@ -66,7 +67,24 @@
     />
 {/each}
 {#each Array(numOfBars) as _, i}
-    {#if !isLastStave || i != numOfBars - 1}
+    {#if endBarArray[i]}
+        <line
+            x1={viewBoxWidth - xRightMargin}
+            y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
+            x2={viewBoxWidth - xRightMargin}
+            y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
+            stroke="black"
+            stroke-width={barWidth * 2}
+        />
+        <line
+            x1={viewBoxWidth - xRightMargin - doubleBarInterval}
+            y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
+            x2={viewBoxWidth - xRightMargin - doubleBarInterval}
+            y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
+            stroke="black"
+            stroke-width={barWidth}
+        />
+    {:else}
         <line
             x1={xNthBar(i)}
             y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
@@ -75,26 +93,18 @@
             stroke="black"
             stroke-width={barWidth}
         />
+        {#if doubleBarArray[i]}
+            <line
+                x1={viewBoxWidth - xRightMargin - doubleBarInterval}
+                y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
+                x2={viewBoxWidth - xRightMargin - doubleBarInterval}
+                y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
+                stroke="black"
+                stroke-width={barWidth}
+            />
+        {/if}
     {/if}
 {/each}
-{#if isLastStave}
-    <line
-        x1={viewBoxWidth - xRightMargin}
-        y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
-        x2={viewBoxWidth - xRightMargin}
-        y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
-        stroke="black"
-        stroke-width={barWidth * 2}
-    />
-    <line
-        x1={viewBoxWidth - xRightMargin - doubleBarInterval}
-        y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
-        x2={viewBoxWidth - xRightMargin - doubleBarInterval}
-        y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
-        stroke="black"
-        stroke-width={barWidth}
-    />
-{/if}
 <TrebleClefComponent cx={xLeftMargin + clefWidth / 2} {yMiddle} />
 <KeySignatureComponent
     xLeftEnd={xLeftMargin + clefWidth}

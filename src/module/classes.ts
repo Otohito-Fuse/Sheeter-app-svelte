@@ -28,19 +28,25 @@ export class Bar {
     beams: Array<Beam>;
     rests: Array<Rest>;
     ties: Array<Tie>;
+    withDoubleBar: boolean;
+    withEndBar: boolean;
 
     constructor(
         noteHeads: Array<NoteHead>,
         stems: Array<Stem>,
         beams: Array<Beam>,
         rests: Array<Rest>,
-        ties: Array<Tie>
+        ties: Array<Tie>,
+        withDoubleBar: boolean,
+        withEndBar: boolean
     ) {
         this.noteHeads = noteHeads;
         this.stems = stems;
         this.beams = beams;
         this.rests = rests;
         this.ties = ties;
+        this.withDoubleBar = withDoubleBar;
+        this.withEndBar = withEndBar;
     }
 }
 
