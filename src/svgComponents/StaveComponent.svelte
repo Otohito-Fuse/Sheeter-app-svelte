@@ -69,17 +69,17 @@
 {#each Array(numOfBars) as _, i}
     {#if endBarArray[i]}
         <line
-            x1={viewBoxWidth - xRightMargin}
+            x1={xNthBar(i)}
             y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
-            x2={viewBoxWidth - xRightMargin}
+            x2={xNthBar(i)}
             y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
             stroke="black"
             stroke-width={barWidth * 2}
         />
         <line
-            x1={viewBoxWidth - xRightMargin - doubleBarInterval}
+            x1={xNthBar(i) - doubleBarInterval}
             y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
-            x2={viewBoxWidth - xRightMargin - doubleBarInterval}
+            x2={xNthBar(i) - doubleBarInterval}
             y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
             stroke="black"
             stroke-width={barWidth}
@@ -95,9 +95,9 @@
         />
         {#if doubleBarArray[i]}
             <line
-                x1={viewBoxWidth - xRightMargin - doubleBarInterval}
+                x1={xNthBar(i) - doubleBarInterval}
                 y1={yMiddle - 2 * yLineInterval - lineWidth / 2}
-                x2={viewBoxWidth - xRightMargin - doubleBarInterval}
+                x2={xNthBar(i) - doubleBarInterval}
                 y2={yMiddle + 2 * yLineInterval + lineWidth / 2}
                 stroke="black"
                 stroke-width={barWidth}
