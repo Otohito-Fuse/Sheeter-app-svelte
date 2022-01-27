@@ -239,8 +239,34 @@ function notesToElements(notes: Array<Note>): Bar {
                 noteHeadType = "whole";
             } else if (4 * numer0 > denom0) {
                 noteHeadType = "half";
+                stems.push(
+                    new Stem(xRel, yRel, yRel + (yRel >= 0 ? -7 : 7), "none")
+                );
             } else {
                 noteHeadType = "quarter";
+                if (8 * numer0 > denom0) {
+                    stems.push(
+                        new Stem(xRel, yRel, yRel + (yRel >= 0 ? -7 : 7), "none")
+                    );
+                } else if (16 * numer0 > denom0) {
+                    stems.push(
+                        new Stem(
+                            xRel,
+                            yRel,
+                            yRel + (yRel >= 0 ? -7 : 7),
+                            "eighth"
+                        )
+                    );
+                } else {
+                    stems.push(
+                        new Stem(
+                            xRel,
+                            yRel,
+                            yRel + (yRel >= 0 ? -7 : 7),
+                            "sixteenth"
+                        )
+                    );
+                }
             }
             noteHeads.push(
                 new NoteHead(

@@ -12,6 +12,7 @@
     import TitleComponent from "./svgComponents/TitleComponent.svelte";
     import ChordComponent from "./svgComponents/ChordComponent.svelte";
     import TiesComponent from "./svgComponents/TiesComponent.svelte";
+    import StemsComponent from "./svgComponents/StemsComponent.svelte";
 
     export let width: number;
     $: height = (width * viewBoxHeight) / viewBoxWidth;
@@ -82,6 +83,15 @@
                 {i}
                 {j}
                 ties={bar.ties}
+                numOfBars={stave.bars.length}
+                numOfKeySignatures={Math.abs(stave.keySignature)}
+                timeSignatureNumer={stave.timeSignatureNumer}
+                timeSignatureDenom={stave.timeSignatureDenom}
+            />
+            <StemsComponent
+                {i}
+                {j}
+                stems={bar.stems}
                 numOfBars={stave.bars.length}
                 numOfKeySignatures={Math.abs(stave.keySignature)}
                 timeSignatureNumer={stave.timeSignatureNumer}

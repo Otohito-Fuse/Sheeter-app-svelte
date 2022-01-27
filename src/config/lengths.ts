@@ -18,6 +18,8 @@ export const lineWidth: number = 1.5;
 
 export const barWidth: number = 2;
 
+export const stemWidth: number = 1.75;
+
 export const doubleBarInterval: number = 10;
 
 export const clefWidth: number = yLineInterval * 4;
@@ -47,3 +49,7 @@ export const keySignatureArraySharp: number[] = [4, 1, 5, 2, -1, 3, 0];
 export const yChordHeight: number = yLineInterval * 6.5;
 
 export const chordNoteSymbolSize: number = yLineInterval * 2.5;
+
+export const xGapBetweenNoteheadAndStem: number = yLineInterval * 0.625;
+
+export const yGapBetweenNoteheadAndStem: number = yLineInterval * 0.15;
